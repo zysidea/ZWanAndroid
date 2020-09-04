@@ -1,0 +1,61 @@
+import com.zysidea.libsrc.version.Deps
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "com.zysidea.zwanandroid"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode VERSION_CODE.toInteger()
+        versionName VERSION_NAME
+
+    }
+
+    kapt {
+        arguments {
+            arg('eventBusIndex', 'com.zysidea.zwanandroid.EventBusIndex')
+        }
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation Deps.androidx.constraint_layout
+    implementation Deps.androidx.recyclerview
+    implementation Deps.androidx.ktx
+    implementation Deps.androidx.kotlin_stdlib
+    implementation Deps.androidx.appcompat
+
+    implementation Deps.third.gson
+
+    implementation Deps.third.guava.guava
+    implementation Deps.third.guava.guava_android
+
+    implementation Deps.third.eventBus.eventbus
+    kapt Deps.third.eventBus.eventbusProcessor
+
+    implementation Deps.third.retrofit.retrofit
+    implementation Deps.third.retrofit.gson
+    implementation Deps.third.retrofit.rxjava2
+
+    implementation Deps.third.parcel.parceler_api
+    kapt Deps.third.parcel.parceler
+
+    implementation Deps.third.rx.rxjava
+    implementation Deps.third.rx.rxandroid
+
+}
